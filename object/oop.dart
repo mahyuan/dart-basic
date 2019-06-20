@@ -36,7 +36,111 @@
  * 计算属性赋值，其实是通过计算转换到其他实例变量
  *
  */
-void main() {
 
+
+/**
+ * 常量构造方法
+ * 如果累是不可变状态，可以把对象定义为编译器常量
+ * 使用const声明构造方法，并且所有变量都为 final
+ * 使用 const 声明对象，可以省略
+ */
+void main() {
+  const persion = const Persion('mahy', 22);
+  persion.work();
+
+  var page = new Page();
+//  page.scrollDown();
+  Page.scrollDown(); // 静态的方法直接访问
+  page.scrollUp();
+}
+
+
+class Persion {
+  final String name;
+  final int age;
+
+  const Persion(this.name, this.age);
+
+  void work() {
+    print('Work');
+  }
+}
+
+
+/***
+ * 工厂构造方法
+ * 工厂构造方法类似于设计模式中的工厂模式
+ * 在构造方法前面添加关键字 factory 实现一个工厂构造方法
+ * 在工厂构造方法中可返回对象
+ */
+
+class Logger {
+  final String name;
+
+  static final Map<String, Logger> _cache = <String, Logger>{};
+
+  factory Logger(String name) {
+    if (_cache.containsKey(name)) {
+      return _cache[name];
+    } else {
+      final logger = Logger._internal(name);
+      _cache[name] = logger;
+      return logger;
+    }
+  }
+
+  Logger._internal(this.name);
+
+  void log(String msg) {
+    print(msg);
+  }
+
+}
+
+/**
+ * 初始化列表
+ * 初始化列表会在构造方法体执行之前执行
+ * 使用逗号分隔初始化列表
+ * 初始化列表常用于设置final变量的值
+ */
+class Persion2 {
+  String name;
+  int age;
+  final String gender;
+
+//  Persion2.withMap(Map map): gender = map['gender']{
+//    this.name = map['name'];
+//    this.age = map['age'];
+//  }
+  Persion2.withMap(Map map): name = map['name'], gender = map['gender'] {
+    age = map['age'];
+  }
+
+  void work() {
+    print('Work');
+  }
+}
+
+
+/**
+ * 静态成员
+ * 使用static关键字实现类级别的变量和函数
+ * 静态成员不能访问非静态成员， 非静态成员可以访问静态成员
+ * 类中的常量需要使用 static const 声明
+ */
+
+class Page {
+  static int currentPage = 1;
+  static const int maxPage = 10; // 声明常量必须使用 static 关键字
+
+  static void scrollDown() {
+    currentPage =  1;
+    print('scroll down...');
+  }
+
+  void scrollUp() {
+    currentPage++;
+    print('scroll up...');
+  }
 }
 
