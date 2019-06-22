@@ -70,8 +70,8 @@ void main() {
 //    person.work();
 //  }
 
-  var persion3 = new Persion3();
-  persion3..name = 'Tome'
+  var person3 = new Person3();
+  person3..name = 'Tome'
           ..age = 22
           ..work();
 
@@ -79,8 +79,6 @@ void main() {
 //  call
   var people = new People();
   print(people('mahy', 23));
-
-
 
 }
 
