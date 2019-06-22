@@ -45,21 +45,51 @@
  * 使用 const 声明对象，可以省略
  */
 void main() {
-  const persion = const Persion('mahy', 22);
-  persion.work();
+  const person = const Person('mahy', 22);
+  person.work();
 
   var page = new Page();
 //  page.scrollDown();
   Page.scrollDown(); // 静态的方法直接访问
   page.scrollUp();
+
+//  对象操作符
+//  Person3 person3 = new Person3('mahy', 22);
+//  person3?.name;
+
+//  var person3 = '';
+//  person3 = '';
+//  person3 = new Person3();
+
+//  (person3 as Person3).work();
+//  if(person3 is Person3) {
+//    person3.work();
+//  }
+
+//  if(person is! Person) {
+//    person.work();
+//  }
+
+  var persion3 = new Persion3();
+  persion3..name = 'Tome'
+          ..age = 22
+          ..work();
+
+
+//  call
+  var people = new People();
+  print(people('mahy', 23));
+
+
+
 }
 
 
-class Persion {
+class Person {
   final String name;
   final int age;
 
-  const Persion(this.name, this.age);
+  const Person(this.name, this.age);
 
   void work() {
     print('Work');
@@ -103,16 +133,16 @@ class Logger {
  * 使用逗号分隔初始化列表
  * 初始化列表常用于设置final变量的值
  */
-class Persion2 {
+class Person2 {
   String name;
   int age;
   final String gender;
 
-//  Persion2.withMap(Map map): gender = map['gender']{
+//  Person2.withMap(Map map): gender = map['gender']{
 //    this.name = map['name'];
 //    this.age = map['age'];
 //  }
-  Persion2.withMap(Map map): name = map['name'], gender = map['gender'] {
+  Person2.withMap(Map map): name = map['name'], gender = map['gender'] {
     age = map['age'];
   }
 
@@ -144,3 +174,37 @@ class Page {
   }
 }
 
+
+/**
+ * 对象操作符
+ * 条件成员访问： ?.
+ * 类型转换： as
+ * 是否制定类型: is , is!
+ * 级联操作符
+ *
+ */
+
+class Person3 {
+  String name;
+  int age;
+
+  void work() {
+    print('Work');
+  }
+}
+
+/**
+ * 对象 call 方法
+ * 如果类实现了 call 方法，则该类的对象可以作为方法使用
+ */
+class People {
+  String name;
+  int age;
+
+//  void work() {
+//    print('call ');
+//  }
+  String call(String name, int age) {
+    return "name is  $name, age  is $age";
+  }
+}
